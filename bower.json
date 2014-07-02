@@ -26,7 +26,8 @@
   ],
   "dependencies": {
     "backbone": ">=0.9.2",
-    "underscore": "~1"
+    "underscore": "~1",
+    "lz-string": "*"
   },
   "devDependencies": {
     "coffee-script": "~1"

@@ -108,14 +108,14 @@ class window.Store
     if not _.isObject(model) then return model
     if not model.id
       model.set model.idAttribute, @generateId()
-    localStorage.setItem @name + @sep + model.id, JSON.stringify(model)
+    localStorage.setItem @name + @sep + model.id, LZString.compressToUTF16 JSON.stringify(model)
     @records.push model.id.toString()
     @save()
     model
 
   # Update a model by replacing its copy in `this.data`.
   update: (model) ->
-    localStorage.setItem @name + @sep + model.id, JSON.stringify(model)
+    localStorage.setItem @name + @sep + model.id, LZString.compressToUTF16 JSON.stringify(model)
     if not _.include(@records, model.id.toString())
       @records.push model.id.toString()
     @save()
@@ -132,14 +132,15 @@ class window.Store
 
   # Retrieve a model from `this.data` by id.
   find: (model) ->
-    modelAsJson = localStorage.getItem(@name + @sep + model.id)
-    return null if modelAsJson == null
+    modelCompressed = localStorage.getItem(@name + @sep + model.id)
+    return null if modelCompressed == null
+    modelAsJson = LZString.decompressFromUTF16(modelCompressed)
     JSON.parse modelAsJson
 
   # Return the array of all models currently in storage.
   findAll: ->
     for id in @records
-      JSON.parse localStorage.getItem(@name + @sep + id)
+      JSON.parse LZString.decompressFromUTF16(localStorage.getItem(@name + @sep + id))
 
   # Delete a model from `this.data`, returning it.
   destroy: (model) ->
