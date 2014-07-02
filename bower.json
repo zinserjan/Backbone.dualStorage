@@ -27,7 +27,7 @@
   "dependencies": {
     "backbone": ">=0.9.2",
     "underscore": "~1",
-    "lz-string": "*"
+    "lz-string": "https://github.com/RodneyReid/lz-string.git"
   },
   "devDependencies": {
     "coffee-script": "~1"
