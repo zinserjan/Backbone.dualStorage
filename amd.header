@@ -1,9 +1,13 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
-    define(['backbone', 'lz-string'], factory);
-  } else if (typeof require === 'function' && ((typeof module !== "undefined" && module !== null ? module.exports : void 0) != null)) {
+    define(['backbone', 'lz-string'], function(Backbone, LZString) {
+            return factory(Backbone, LZString);
+        });
+  }
+  else if (typeof require === 'function' && ((typeof module !== "undefined" && module !== null ? module.exports : void 0) != null)) {
     return module.exports = factory(require('backbone'), require('lz-string'));
-  } else {
+  }
+  else {
     factory(root.Backbone, root.LZString);
   }
 })(this, function(Backbone, LZString) {
