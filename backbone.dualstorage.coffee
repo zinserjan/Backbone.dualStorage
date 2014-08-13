@@ -86,6 +86,7 @@ class window.Store
     if not _.include(dirtyRecords, model.id.toString())
       dirtyRecords.push model.id
       localStorage.setItem @name + '_dirty', dirtyRecords.join(',')
+      model.trigger "dirty"
     model
 
   clean: (model, from) ->
@@ -100,6 +101,7 @@ class window.Store
     if not _.include destroyedRecords, model.id.toString()
       destroyedRecords.push model.id
       localStorage.setItem @name + '_destroyed', destroyedRecords.join(',')
+      model.trigger "destroyed"
     model
 
   # Add a model, giving it a unique GUID, if it doesn't already

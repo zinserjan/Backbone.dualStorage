@@ -108,6 +108,7 @@ window.Store = (function() {
     if (!_.include(dirtyRecords, model.id.toString())) {
       dirtyRecords.push(model.id);
       localStorage.setItem(this.name + '_dirty', dirtyRecords.join(','));
+      model.trigger("dirty");
     }
     return model;
   };
@@ -128,6 +129,7 @@ window.Store = (function() {
     if (!_.include(destroyedRecords, model.id.toString())) {
       destroyedRecords.push(model.id);
       localStorage.setItem(this.name + '_destroyed', destroyedRecords.join(','));
+      model.trigger("destroyed");
     }
     return model;
   };
